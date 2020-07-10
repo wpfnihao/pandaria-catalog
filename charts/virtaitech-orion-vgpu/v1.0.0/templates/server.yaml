@@ -44,7 +44,11 @@ spec:
         - name: LD_LIBRARY_PATH
           value: "/usr/lib/libnv"
         - name: ORION_CONTROLLER
+        {{- if .Values.k3s.enabled }}
+          value: '{{ .Values.k3s.hostIP }}:{{ .Values.controller.nodeport }}'
+        {{- else }}
           value: '{{ .Values.controller.service }}:{{ .Values.controller.port | atoi }}'
+        {{- end }}
           # TODO: changing this value not tested
         - name: ORION_SERVER_PORT 
           value: '{{ .Values.server.port }}'

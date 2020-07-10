@@ -42,7 +42,11 @@ spec:
             mountPath: {{ .Values.volumes.shm }}
         env:
         - name: ORION_CONTROLLER
+        {{- if .Values.k3s.enabled }}
+          value: '{{ .Values.k3s.hostIP }}:{{ .Values.controller.nodeport }}'
+        {{- else }}
           value: '{{ .Values.controller.service }}:{{ .Values.controller.port | atoi }}'
+        {{- end }}
         - name: ORION_RES_NAME 
           value: {{ .Values.resources.name }}
         - name: ORION_BIND_NET

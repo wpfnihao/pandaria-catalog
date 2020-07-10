@@ -2,6 +2,12 @@ image:
   pullPolicy: IfNotPresent
 imagePullSecrets: 
 
+k3s: 
+  enabled: false
+  # Interesting Config:
+  # Please make sure this value is set to any accessible k3s node ip
+  hostIP: "127.0.0.1"
+
 resources:
   # Interesting Config:
   # resource name exposed by Orion
